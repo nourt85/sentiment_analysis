@@ -22,7 +22,7 @@ contractions_pattern = re.compile('({})'.format('|'.join(CONTRACTION_MAP.keys())
 
 nlp = spacy.load("en_core_web_sm", disabled=["parser", "tagger","ner"])
 tokenizer = ToktokTokenizer()
-nltk.data.path.append('./nltk_data/')
+#nltk.data.path.append('./nltk_data/')
 stopword_list = nltk.corpus.stopwords.words('english')
 stopword_list.remove('no')
 stopword_list.remove('not')

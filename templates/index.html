@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>ML Sentiment Analysis tool</title>
+</head>
+
+
+<body>
+    <div class="login">
+        <h1>Sentiment Analysis Predictor</h1>
+
+        <form action="{{ url_for('predict')}}"method="post">
+
+            <label for="review_text">Review</label>
+            <br>
+            <textarea rows="4" cols="50" name="review_text" id="review_text" required="required"/>{{ review_text | default("", true) }}</textarea> <br>
+
+            <button type="submit">Predict</button>
+        </form>
+
+        <br>
+        <br>
+        {{ prediction_text }}
+    </div>
+</body>
+</html>

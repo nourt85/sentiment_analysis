@@ -1,0 +1,38 @@
+import numpy as np
+from flask import Flask, request, jsonify, render_template
+import pickle
+import pipeline
+
+app = Flask(__name__)
+#model = pickle.load(open("sentiment_LSTM.pkl", 'rb'))
+#model = keras.models.load_model("sentiment_LSTM.h5")
+pkl_lr_filename = 'BOW_lr_model.pkl'
+pkl_BOW_filename = 'BOW.pkl'
+with open(pkl_lr_filename, 'rb') as file:
+    lr = pickle.load(file)
+with open(pkl_BOW_filename, 'rb') as file:
+    bow = pickle.load(file)
+@app.route('/')
+def home():
+    return render_template('index.html')
+
+
+@app.route('/predict', methods=['POST'])
+def predict():
+    #int_features = [float(x) for x in request.form.values()]
+    text = request.form['review_text']
+    norm_text = pipeline.normalize_corpus(np.array([text]), html_stripping=True, contraction_expansion=True,
+                     accented_char_removal=True, text_lower_case=True,
+                     text_lemmatization=True, special_char_removal=True,
+                     stopword_removal=True)
+    feat=bow.transform(norm_text)
+    sentiment = lr.predict(feat)[0]
+    #sentiment=0
+    return render_template('index.html',
+                           prediction_text=("Positive!" if (sentiment == 1) else "Negative!"),
+                           review_text=text,
+                           )
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

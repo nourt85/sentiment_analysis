@@ -27,9 +27,11 @@ def predict():
                      stopword_removal=True)
     feat=bow.transform(norm_text)
     sentiment = lr.predict(feat)[0]
+    confidence = lr.predict_proba(feat)[0][sentiment]
     #sentiment=0
     return render_template('index.html',
                            prediction_text=("Positive!" if (sentiment == 1) else "Negative!"),
+                           confidence_score="confidence: {:.2f}%".format(confidence),
                            review_text=text,
                            )
 

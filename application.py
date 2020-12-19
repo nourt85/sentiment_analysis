@@ -31,7 +31,7 @@ def predict():
     #sentiment=0
     return render_template('index.html',
                            prediction_text=("Positive!" if (sentiment == 1) else "Negative!"),
-                           confidence_score="confidence: {:.2f}%".format(confidence),
+                           confidence_score="confidence: {0:.0%}".format(confidence),
                            review_text=text,
                            )
 

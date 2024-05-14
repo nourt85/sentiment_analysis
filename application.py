@@ -4,8 +4,7 @@ import pickle
 import pipeline
 
 app = Flask(__name__)
-#model = pickle.load(open("sentiment_LSTM.pkl", 'rb'))
-#model = keras.models.load_model("sentiment_LSTM.h5")
+
 pkl_lr_filename = 'BOW_lr_model.pkl'
 pkl_BOW_filename = 'BOW.pkl'
 with open(pkl_lr_filename, 'rb') as file:
